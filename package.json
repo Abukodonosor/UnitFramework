@@ -1,0 +1,27 @@
+{
+  "name": "grinder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node src/main.js",
+    "build": "babel src --out-dir dist --source-maps --watch",
+    "serve": "node dist/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "BuaLabs",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-stage-3": "^7.0.0",
+    "@babel/plugin-proposal-private-methods": "^7.4.4",
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "core-js": "^3.1.4"
+  }
+}
