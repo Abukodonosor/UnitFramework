@@ -31,7 +31,7 @@ class Express {
      */
     setDomain( domains ) {
         for(let domain of domains ) {
-            Express.domainInterfaceDefinition.push(domain.type);
+            Express.domainInterfaceDefinition.push(domain);
         }
     }
     
@@ -44,12 +44,12 @@ class Express {
     }
 
     setDomainInterface( domainName, middleware, domainInterfaceSchema ) {
-        let domain = Express.domainInterfaceDefinition[0];
-        const iterfaceData = {
+        let domain = findExectDOmainName(domainName)
+        const interfaceData = {
             app : this.app,
-            domain: domain 
+            domain: domain.type
         } 
-        domainInterfaceSchema(unitRouteWrapper.bind( iterfaceData ))
+        domainInterfaceSchema(unitRouteWrapper.bind( interfaceData ))
     }
     
 
@@ -65,4 +65,13 @@ function createInstances( numberOfInstances, classBlueprint) {
         --numberOfInstances;
     }
     return instanceArray;
+}
+
+function findExectDOmainName(domainName){
+    return  Express
+                .domainInterfaceDefinition
+                .filter(el => {
+                    if ( el.definition == domainName )
+                        return el;
+                })[0];
 }
