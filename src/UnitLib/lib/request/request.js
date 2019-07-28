@@ -21,12 +21,10 @@ export class Request {
  * 
  */
 function RequestLibWrape() {
-
     //error & success handling messages
     const
         error_msg = `Request fail to ${url}, log:`,
         success_msg = `Request successful to ${url}, body`;
-    
 
     async function sendRequest(method, url, data, headers) {
         request({
@@ -43,7 +41,6 @@ function RequestLibWrape() {
             return resolve(body, httpResponse);
         });
     }   
-
 
     return {
         send: sendRequest

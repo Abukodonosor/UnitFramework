@@ -11,7 +11,7 @@ export default class Unit {
     static dbConn = getSingletonConnection() // from config parameter to choose singleton or pool pattern
     static cacheConn; //static chache connection (if we have redis)
     static registryConn;
-    static UnitModel = UnitModelTemplate; //support to make class Models
+    static classTemplate = UnitModelTemplate; //support to make class Models
     
     constructor() {
         this.service = ExpressFactoryCreateNew(); // depend on config
@@ -20,4 +20,13 @@ export default class Unit {
     Run() {
        this.service.start()    
     }
-}
+
+    setDomains( domains ) {
+        this.service.setDomain(domains);
+    }
+
+    implementDomain( domainName, middleware, domainInterfaceSchema ) {
+        //Implement middleware support
+        this.service.setDomainInterface( domainName, middleware, domainInterfaceSchema);
+    }
+}   

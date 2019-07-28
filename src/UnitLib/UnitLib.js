@@ -16,8 +16,9 @@ export default (function UnitLib() {
         return Unit.dbConn;
     }
 
+    //class template
     function classTemplate() {
-        return Unit.UnitModel
+        return Unit.classTemplate
     }
 
     return {

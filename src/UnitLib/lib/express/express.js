@@ -1,15 +1,20 @@
 "use strict"
 
 import express from "express";
-import cookieParser from 'cookie-parser';
-import logger from 'morgan';
+import cookieParser from "cookie-parser";
+import logger from "morgan";
+import { unitRouteWrapper } from "./expressRouter.js"
 
-export function ExpressFactoryCreateNew() {
+export function ExpressFactoryCreateNew( numberOfInstances = null) {
+    if ( numberOfInstances == null)
         return new Express();
+    else
+        return createInstances( numberOfInstances, Express);
 }
 
 class Express {
 
+    static domainInterfaceDefinition = [];
     //init library's to support the express server
     constructor() {
         this.app = express();
@@ -26,7 +31,7 @@ class Express {
      */
     setDomain( domains ) {
         for(let domain of domains ) {
-            this.app.use( "/" + domain.type, domain.definition );
+            Express.domainInterfaceDefinition.push(domain.type);
         }
     }
     
@@ -38,5 +43,26 @@ class Express {
         )
     }
 
+    setDomainInterface( domainName, middleware, domainInterfaceSchema ) {
+        let domain = Express.domainInterfaceDefinition[0];
+        const iterfaceData = {
+            app : this.app,
+            domain: domain 
+        } 
+        domainInterfaceSchema(unitRouteWrapper.bind( iterfaceData ))
+    }
+    
+
+
 }
 
+/** private helper functions */
+//TO DO: every instance to have different portso they can communicate => need to be implemented
+function createInstances( numberOfInstances, classBlueprint) {
+    let instanceArray = [];
+    while( numberOfInstances ){
+        instanceArray.push( new classBlueprint)
+        --numberOfInstances;
+    }
+    return instanceArray;
+}

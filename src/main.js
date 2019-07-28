@@ -7,52 +7,74 @@ import path from 'path';
 import express from 'express'
 
 /*** test unit network lib */
-import UnitLib from './UnitLib/UnitLib.js';
+import UnitLib  from './UnitLib/UnitLib.js';
 
+const UnitNetwork = UnitLib.unitNetwork;
 const unitService1 = UnitLib.newService();
 
 unitService1
     .service
     .setDomain([
     {
-        type: 'set1',
-        definition: nekaFunckija()
+        type: 'airplane',
+        definition: "Airplane"
     },
     {
-        type: 'set2',
-        definition: nekaFunckija()
+        type: 'boat',
+        definition: "Boat"
     }]);
+
+    
+    
+unitService1.implementDomain("Airplane",//setDomainModules
+[
+    'authMiddleware', 
+    'serviceAvailabilityMiddleware'
+], function( AirplaneRouter ) {
+    
+    console.log(AirplaneRouter)
+    AirplaneRouter('/by/card',{
+        userId: 'Number',
+        places: 'Array',
+        priceRange: 'String',
+        filterSchema: 'Object'
+    }, RentActionController );
+    
+    AirplaneRouter('/by/airplane',{
+        userId: 'Number',
+        places: 'Array',
+        priceRange: 'String',
+        filterSchema: 'Object'
+    }, RentActionController );
+    
+    AirplaneRouter('/schedule/fly',{
+        userId: 'number',
+        places: 'array',
+    }, RentActionController );
+
+});
 
 unitService1.Run();
 
-
-//Funckija koja obradjuje rute 
-function nekaFunckija(){
-    const router = express.Router();
-    router.get('/qwe', async (req, res, next) => {
-
-        UnitLib.dbConnection.query("select 1+1",[], (err,result)=>{
-            console.log(result)
-            res.send("qwe bre");
-        })
-
-    });
-    router.post('/qwe123', async (req, res, next) => {
-
-        res.send("qwe qwe");
-    });
-    return router;
+function RentActionController( request, response, userId, places, priceRange, filterSchema) {
+    
+    console.log("RADI FUNKCIJA")
+    // let expiredTickets = Tickets.getAllExpiredTickets();
+    // let expiredTickets = UnitNetwork.getAllExpiredTickets(userId); // : TO IMPLEMENT - how to fetch data from other services
+    // let newTicket = Ticket.createNewTicket(expiredTickets);
+    // newTicket.addBonus('random');
+    const newTicket = "success";
+    response.send(newTicket);
 }
 
 
-//Example how to make class from this package
-class User extends UnitLib.classTemplate {
+//Example how to inherit class from this package
+class Ticket extends UnitLib.classTemplate {
 
     constructor(){
         super();
         this.djoka = 3;
     }
-
 }
 
 // debugger
