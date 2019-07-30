@@ -23,8 +23,6 @@ unitService1
         type: 'boat',
         definition: "Boat"
     }]);
-
-    
     
 unitService1.implementDomain("Airplane",//setDomainModules
 [
@@ -32,12 +30,11 @@ unitService1.implementDomain("Airplane",//setDomainModules
     'serviceAvailabilityMiddleware'
 ], function( AirplaneRouter ) {
     
-    console.log(AirplaneRouter)
     AirplaneRouter('/by/card',{
-        userId: 'Number',
-        places: 'Array',
-        priceRange: 'String',
-        filterSchema: 'Object'
+        userId: 'number',
+        // places: 'Array',
+        // priceRange: 'String',
+        // filterSchema: 'Object'
     }, RentActionController );
     
     AirplaneRouter('/by/airplane',{
