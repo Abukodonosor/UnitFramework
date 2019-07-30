@@ -32,16 +32,16 @@ unitService1.implementDomain("Airplane",//setDomainModules
     
     AirplaneRouter('/by/card',{
         userId: 'number',
-        // places: 'Array',
-        // priceRange: 'String',
-        // filterSchema: 'Object'
+        // places: 'array',
+        // priceRange: 'string',
+        // filterSchema: 'object'
     }, RentActionController );
     
     AirplaneRouter('/by/airplane',{
-        userId: 'Number',
-        places: 'Array',
-        priceRange: 'String',
-        filterSchema: 'Object'
+        userId: 'number',
+        places: 'array',
+        priceRange: 'string',
+        filterSchema: 'object'
     }, RentActionController );
     
     AirplaneRouter('/schedule/fly',{
