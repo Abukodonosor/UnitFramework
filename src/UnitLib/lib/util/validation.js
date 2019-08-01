@@ -7,9 +7,11 @@ export function validateServiceEndpoint( validationSchema, request ){
     let requestInput = JSON.parse(request.body.data);
     let status = true;
     const data = Object.assign( {}, requestInput);
+    let outputData = new Object();
+    outputData.arguments = new Array();
 
     const arrayOfKeys = Object.keys(validationSchema);
-    console.log(data);
+    
     for(let key in validationSchema ) {
         let belongToSchema = data.hasOwnProperty(key);
         
@@ -24,11 +26,13 @@ export function validateServiceEndpoint( validationSchema, request ){
         if ( belongToSchema ) {
             arrayOfKeys.splice(
                 arrayOfKeys.indexOf('key'), 1 )
+            outputData.arguments.push(data[key]);
         }
     }
+    console.log(data)
 
     return {
         status,
-        data
+        outputData
     }
 }

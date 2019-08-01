@@ -54,8 +54,13 @@ unitService1.implementDomain("Airplane",//setDomainModules
 unitService1.Run();
 
 function RentActionController( request, response, userId, places, priceRange, filterSchema) {
-    
+
+
+    console.log(userId)
+
     console.log("RADI FUNKCIJA")
+
+    console.log(priceRange);
     // let expiredTickets = Tickets.getAllExpiredTickets();
     // let expiredTickets = UnitNetwork.getAllExpiredTickets(userId); // : TO IMPLEMENT - how to fetch data from other services
     // let newTicket = Ticket.createNewTicket(expiredTickets);
