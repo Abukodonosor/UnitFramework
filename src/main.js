@@ -32,9 +32,9 @@ unitService1.implementDomain("Airplane",//setDomainModules
     
     AirplaneRouter('/by/card',{
         userId: 'number',
-        // places: 'array',
-        // priceRange: 'string',
-        // filterSchema: 'object'
+        places: 'array',
+        priceRange: 'string',
+        filterSchema: 'object'
     }, RentActionController );
     
     AirplaneRouter('/by/airplane',{
@@ -76,7 +76,6 @@ class Ticket extends UnitLib.classTemplate {
 
 // debugger
 // console.log(unitService1);
-
 
 
 

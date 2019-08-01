@@ -35,7 +35,14 @@ const request = require('request');
 // }
 
 
-request.post({url:'http://localhost:3000/airplane/by/card', form: {userId:32}}, function(err,httpResponse,body){ 
+const data = {
+    userId:32,
+    places: [1,2,3],
+    priceRange: "djoka je bre",
+    filterSchema: { kljuc: "ajde", bre:2}
+};
+
+/// TO DO CONTINUE: make request by json stringify
+request.post({url:'http://localhost:3000/airplane/by/card', form:{ data: JSON.stringify(data)} }, function(err,httpResponse,body){ 
     console.log(body);
 })
-

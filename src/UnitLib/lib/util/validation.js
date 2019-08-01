@@ -4,10 +4,12 @@ const validationOptions = [ "number", "object", "array", "string", "boolean" ]
 
 export function validateServiceEndpoint( validationSchema, request ){
 
+    let requestInput = JSON.parse(request.body.data);
     let status = true;
-    const data = Object.assign( {}, request.body);
+    const data = Object.assign( {}, requestInput);
+
     const arrayOfKeys = Object.keys(validationSchema);
-    
+    console.log(data);
     for(let key in validationSchema ) {
         let belongToSchema = data.hasOwnProperty(key);
         
