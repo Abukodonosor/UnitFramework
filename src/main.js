@@ -53,15 +53,14 @@ unitService1.implementDomain("Airplane",//setDomainModules
 
 unitService1.Run();
 
-function RentActionController( request, response, userId, places, priceRange, filterSchema) {
+async function RentActionController( request, response, userId, places, priceRange, filterSchema) {
 
 
     console.log(userId)
-
     console.log("RADI FUNKCIJA")
-
     console.log(priceRange);
-    // let expiredTickets = Tickets.getAllExpiredTickets();
+    let expiredTickets = await Ticket.getAllExpiredTickets();
+    console.log(expiredTickets);
     // let expiredTickets = UnitNetwork.getAllExpiredTickets(userId); // : TO IMPLEMENT - how to fetch data from other services
     // let newTicket = Ticket.createNewTicket(expiredTickets);
     // newTicket.addBonus('random');
@@ -76,6 +75,17 @@ class Ticket extends UnitLib.classTemplate {
     constructor(){
         super();
         this.djoka = 3;
+    }
+
+    static getAllExpiredTickets(){
+        return new Promise((resolve,reject)=>{
+            this.dbConnection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
+                if (error) throw error;
+                console.log('The solution is: ', results[0].solution);
+                resolve(results[0].solution)
+            });
+        })
+
     }
 }
 
