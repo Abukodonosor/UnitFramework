@@ -1,8 +1,5 @@
 'use strict';
 
-
-// // console.log("DJOKA")
-
 const express = require('express');
 const app = express();
 const events = require('events');
@@ -11,23 +8,22 @@ var i = 0;
 
 app.get('/', (req,res) => {
     i++;
-    console.log("Jebote: "+i);
+    console.log("Iter: "+i);
     for(let j = 0;j<10*1000000*1000; j++){
             j++;
     }
-    res.send("djoka");
+    res.send("response");
 });
 
 app.get('/1', (req,res) => {
     i++;
-    process.nextTick(()=>{console.log("OdmaSledeci: " + i)});
-    res.send("KUrcobic "+ i);
+    process.nextTick(()=>{console.log("NextIter: " + i)});
+    res.send("Omggg "+ i);
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
-
-// function djoka(text,time , callback=null){
+// function test11(text,time , callback=null){
 //     setTimeout(()=>{
 //             console.log(text)
 
@@ -36,6 +32,6 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 //         }, time)
 // }
 
-// djoka("ajde1", 3000);
-// djoka("djoka3",1000, function(){  process.nextTick(()=>{console.log("DJOKA")}); })
-// djoka("djoka2",0)
+// test11("ajde1", 3000);
+// test11("new3",1000, function(){  process.nextTick(()=>{console.log("response")}); })
+// test11("new2",0)

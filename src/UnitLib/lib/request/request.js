@@ -37,7 +37,7 @@ function RequestLibWrape() {
                 console.error(error_msg, err);
                 return reject(err)
             }
-            console.log(success_msg, body);
+            // console.log(success_msg, body);
             return resolve(body, httpResponse);
         });
     }   

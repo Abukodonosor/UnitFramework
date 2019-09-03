@@ -12,6 +12,7 @@ import UnitLib  from './UnitLib/UnitLib.js';
 const UnitNetwork = UnitLib.unitNetwork;
 const unitService1 = UnitLib.newService();
 
+// define domen of your service aka application
 unitService1
     .service
     .setDomain([
@@ -55,17 +56,15 @@ unitService1.Run();
 
 async function RentActionController( request, response, userId, places, priceRange, filterSchema) {
 
-
+    console.log("Controller action")
     console.log(userId)
-    console.log("RADI FUNKCIJA")
     console.log(priceRange);
     let expiredTickets = await Ticket.getAllExpiredTickets();
     console.log(expiredTickets);
-    // let expiredTickets = UnitNetwork.getAllExpiredTickets(userId); // : TO IMPLEMENT - how to fetch data from other services
-    // let newTicket = Ticket.createNewTicket(expiredTickets);
-    // newTicket.addBonus('random');
+    // let expiredTickets = UnitNetwork.getAllExpiredTickets(userId); // : TO IMPLEMENT - fetch data from other services
     const newTicket = "success";
     response.send(newTicket);
+
 }
 
 
@@ -74,7 +73,7 @@ class Ticket extends UnitLib.classTemplate {
 
     constructor(){
         super();
-        this.djoka = 3;
+        this.name = 3;
     }
 
     static getAllExpiredTickets(){
@@ -116,7 +115,7 @@ class Ticket extends UnitLib.classTemplate {
 
 
 
-
+// // Some testing code
 // const { fork } = require('child_process');
 
 // const forked = fork('demo.js');
@@ -135,8 +134,6 @@ class Ticket extends UnitLib.classTemplate {
 //     console.log('child process exited with ' +
 //                 `code ${code} and signal ${signal}`);
 //   });
-
-
 
 /*  Here is part of clustered code .. with same code as master process have */
 
