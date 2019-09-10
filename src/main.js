@@ -84,8 +84,9 @@ class Ticket extends UnitLib.classTemplate {
                 resolve(results[0].solution)
             });
         })
-
     }
+
+    
 }
 
 // debugger

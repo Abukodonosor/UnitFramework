@@ -27,7 +27,7 @@ export function getSingletonConnection() {
         return dbConnection;
     }
 
-    // Pool pattern usef for db connections
+    // Pool pattern used for db connections
 export function getPoolConnection() {
         if (poolDbConnection) return poolDbConnection;
         poolDbConnection = mysql.createPool({

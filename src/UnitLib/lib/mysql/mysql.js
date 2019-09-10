@@ -7,52 +7,42 @@
  *    stability to use mysql connection handler in your application
  * 
  */
-var mysql = require('mysql');
+import {
+    getSingletonConnection,
+    getPoolConnection
+} from './mysqlConnections';
 
-var dbConnection;
-var poolDbConnection;
+const drivers = ['mysql', 'postgre', 'mongo'];
+const connTypes = [ 'singleton', 'pool' ];
 
-// export function MySql ( config ){
-    
-    // Singleton pattern used for db connection 
-export function getSingletonConnection() {
-        if (dbConnection) return dbConnection;
-        dbConnection =  mysql.createConnection({
-            host     : 'localhost',
-            user     : "root",
-            password : "qweqwe123",
-            database : "boat_tracker"
-        });	
-        dbConnection.connect();
-        return dbConnection;
+ export function DbDriver( driverType, connectionType ){
+
+    switch( driverType ){
+        case 'mysql':
+            return connectionTypeInstanceByDriver(connectionType, driverType)
+        case 'postgre':
+            break;
+
+        case 'mongo':
+            break;
+
+        default:
+            throw new Error("Connection driver is invalid !!!");
     }
+ }
 
-    // Pool pattern usef for db connections
-export function getPoolConnection() {
-        if (poolDbConnection) return poolDbConnection;
-        poolDbConnection = mysql.createPool({
-            connectionLimit : 10,
-            host            : 'localhost',
-            user            : "",
-            password        : "",
-            database        : ""
-        });
-        return poolDbConnection;
+ function connectionTypeInstanceByDriver( connType , driverName){
+    if( connTypes.indexOf(connType) === -1 ){
+        throw new Error("invalid connection pattern!")
     }
-
-
-/**
- * 
- *  Usage of db connections EXAMPLE:
- *  
- * 
-    const driver = require('./mysqlTest.js');
-    var mysqlConnection = driver.singletonConnection; 
-
-    mysqlConnection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-    if (error) throw error;
-    console.log('The solution is: ', results[0].solution);
-    });
- * 
- * 
- */
+    switch(driverName){
+        case 'mysql':
+            if( connType === connTypes[0]){
+                return getSingletonConnection();
+            } 
+            else if ( connType === connTypes[1]) {
+                return getPoolConnection();
+            }
+        
+    }
+ }
