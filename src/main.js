@@ -24,7 +24,7 @@ unitService1
         type: 'boat',
         definition: "Boat"
     }]);
-    
+
 unitService1.implementDomain("Airplane",//setDomainModules
 [
     'authMiddleware', 
@@ -56,9 +56,7 @@ unitService1.Run();
 
 async function RentActionController( request, response, userId, places, priceRange, filterSchema) {
 
-    console.log("Controller action")
-    console.log(userId)
-    console.log(priceRange);
+    console.log("Controller action");
     let expiredTickets = await Ticket.getAllExpiredTickets();
     console.log("Get all expired tickets: " + expiredTickets);
     // let expiredTickets = UnitNetwork.getAllExpiredTickets(userId); // : TO IMPLEMENT - fetch data from other services
@@ -88,23 +86,17 @@ class Ticket extends UnitLib.classTemplate {
         })
     }
     // promise wrapper around query lib
-    static getNonExpiredTickets(){
+    static getNonExpiredTickets() {
         return this.dbConnection.queryPromise("SELECT 1 + 1 AS solution",[]);
+    }
+    // result array
+    static testNewDBquery() {
+        return this.dbConnection.queryPromise("select * from boat_tracker.boat",[]);
     }
 }
 
 // debugger
 // console.log(unitService1);
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -33,8 +33,7 @@ const connTypes = [ 'singleton', 'pool' ];
         case 'mysql':
             return injectPropertyQueryPromise( 
                 connectionTypeInstanceByDriver(connectionType, driverType),
-                queryPromise 
-            );
+                queryPromise);
         case 'postgre':
             break;
 

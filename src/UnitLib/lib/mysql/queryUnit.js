@@ -4,13 +4,17 @@
  */
 
  export function queryPromise(query, queryParams ){
+    let result = [];
      return new Promise( (resolve, reject ) => {
         if( query === null){
             throw new Error("wrong parameter value of queryPromise() function!")
         }
         this.query(query, queryParams, function (error, results, fields) {
             if (error) throw error;
-            resolve(results[0].solution);
+            for(let row of results) {
+                result.push(row);
+            }
+            resolve(result);
         });
      });
  } 
