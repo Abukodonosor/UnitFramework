@@ -3,12 +3,12 @@
 import { UnitModelTemplate } from './UnitModelTemplate.js'
 import { 
     ExpressFactoryCreateNew, 
-    getSingletonConnection
+    DbDriver
 } from '../lib/lib.js';
 
 export default class Unit {
 
-    static dbConn = getSingletonConnection() // from config parameter to choose singleton or pool pattern
+    static dbConn = DbDriver('mysql', 'singleton'); // from config parameter to choose singleton or pool pattern
     static cacheConn; //static cache connection (if we have redis)
     static registryConn;
     static classTemplate = UnitModelTemplate; //support to make class Models

@@ -60,8 +60,10 @@ async function RentActionController( request, response, userId, places, priceRan
     console.log(userId)
     console.log(priceRange);
     let expiredTickets = await Ticket.getAllExpiredTickets();
-    console.log(expiredTickets);
+    console.log("Get all expired tickets: " + expiredTickets);
     // let expiredTickets = UnitNetwork.getAllExpiredTickets(userId); // : TO IMPLEMENT - fetch data from other services
+    let nonExpiredTickets = await Ticket.getNonExpiredTickets();
+    console.log("All Non-Expired tickets: " + nonExpiredTickets);
     const newTicket = "success";
     response.send(newTicket);
 
@@ -85,8 +87,10 @@ class Ticket extends UnitLib.classTemplate {
             });
         })
     }
-
-    
+    // promise wrapper around query lib
+    static getNonExpiredTickets(){
+        return this.dbConnection.queryPromise("SELECT 1 + 1 AS solution",[]);
+    }
 }
 
 // debugger

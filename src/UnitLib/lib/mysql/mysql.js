@@ -1,16 +1,28 @@
 'use strict';
 /**
  * 
- * Mysql connection driver
+ * Db driver class
  *  - This wrapper give you choice to choose connection pattern.
- *    Also you will be protected of creating multiple connections, and also will give you
- *    stability to use mysql connection handler in your application
+ *    Also you will be protected of creating multiple connections, dbSets and also will give you
+ *    stability to use (mysql/postgre/mongo) connection handler in your application
  * 
  */
+
+// MySql connection patterns
 import {
     getSingletonConnection,
     getPoolConnection
 } from './mysqlConnections';
+
+// Import query wrapper for mysqlPromiseFunctions
+import {
+    queryPromise
+} from './queryUnit';
+
+// Utils object manipulation
+import {
+    injectProperty
+} from '../util/objectManipulation'
 
 const drivers = ['mysql', 'postgre', 'mongo'];
 const connTypes = [ 'singleton', 'pool' ];
@@ -19,7 +31,10 @@ const connTypes = [ 'singleton', 'pool' ];
 
     switch( driverType ){
         case 'mysql':
-            return connectionTypeInstanceByDriver(connectionType, driverType)
+            return injectPropertyQueryPromise( 
+                connectionTypeInstanceByDriver(connectionType, driverType),
+                queryPromise 
+            );
         case 'postgre':
             break;
 
@@ -29,6 +44,10 @@ const connTypes = [ 'singleton', 'pool' ];
         default:
             throw new Error("Connection driver is invalid !!!");
     }
+ }
+
+ function injectPropertyQueryPromise( parentObject, injector ) {
+     return injectProperty( parentObject, injector, "queryPromise");
  }
 
  function connectionTypeInstanceByDriver( connType , driverName){
@@ -43,6 +62,5 @@ const connTypes = [ 'singleton', 'pool' ];
             else if ( connType === connTypes[1]) {
                 return getPoolConnection();
             }
-        
     }
  }

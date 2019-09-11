@@ -5,10 +5,12 @@
 
  export function queryPromise(query, queryParams ){
      return new Promise( (resolve, reject ) => {
-         // replace this ___ with db connection from mysql class
-        this.___.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
+        if( query === null){
+            throw new Error("wrong parameter value of queryPromise() function!")
+        }
+        this.query(query, queryParams, function (error, results, fields) {
             if (error) throw error;
-            resolve(results);
+            resolve(results[0].solution);
         });
      });
  } 
