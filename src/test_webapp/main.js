@@ -1,9 +1,14 @@
 'use strict';
 /*** test unit network lib */
-import UnitLib  from './UnitLib/UnitLib.js';
+import UnitLib  from '../UnitLib/UnitLib.js';
+import { config } from './config.js';
+
 
 const UnitNetwork = UnitLib.unitNetwork;
 const unitService1 = UnitLib.newService();
+
+unitService1
+    .setConfig(config);
 
 // define domen of your service aka application
 unitService1

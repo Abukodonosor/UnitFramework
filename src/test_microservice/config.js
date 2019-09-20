@@ -1,7 +1,4 @@
 "use strict"
-import { ConfigService } from './services/ConfigService.js';
-
-const ConfigServiceInstance = ConfigService();
 
 export const config = {
 
@@ -10,13 +7,12 @@ export const config = {
         name: "Unit",
         communication_type: "http", // "http" || "ipc" 
         appType: "microservice", // "microservice" || "webApp" => TO DO - implement support for making webApp or microserviceApp
-        port: 3690,
     },
 
     //mysql db config
     db: {
-        ip: "local",// ip: ConfigServiceInstance.getIp("local"), // "local" || "public"
-        port: 3690, // configService.availablePort() || 3000  : NOT IMPLEMENTED
+        ip: "local", // "local" || "public"
+        port: 3000, // configService.availablePort() || 3000  : NOT IMPLEMENTED
         db_name: "db_name",
         db_user: "unit",
         db_password: "unit",
@@ -31,10 +27,8 @@ export const config = {
 
     //redis cache mechanism config : NOT IMPLEMENTED
     redis_cache: {
-        cache_ip: "local", //ConfigServiceInstance.getIp("local"),
+        cache_ip: "local",
         cache_port: 6770,
     },
     
-
-
 };

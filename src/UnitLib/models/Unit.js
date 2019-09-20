@@ -1,6 +1,8 @@
 "use strict";
 
 import { UnitModelTemplate } from './UnitModelTemplate.js'
+import { config } from '../DefaultConfig.js';
+
 import { 
     ExpressFactoryCreateNew, 
     DbDriver
@@ -12,6 +14,7 @@ export default class Unit {
     static cacheConn; //static cache connection (if we have redis)
     static registryConn;
     static classTemplate = UnitModelTemplate; //support to make class Models
+
     
     constructor() {
         this.service = ExpressFactoryCreateNew(); // depend on config
@@ -29,4 +32,9 @@ export default class Unit {
         //Implement middleware support
         this.service.setDomainInterface( domainName, middleware, domainInterfaceSchema);
     }
+
+    setConfig( newConfig ){
+        this.service.setConfig(newConfig, config);
+    }
+    
 }   

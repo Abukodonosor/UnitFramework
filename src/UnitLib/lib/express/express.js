@@ -4,6 +4,9 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import { unitRouteWrapper } from "./expressRouter.js"
+import { ConfigService } from "../../services/ConfigService.js" 
+
+const configServiceInstance = ConfigService();
 
 export function ExpressFactoryCreateNew( numberOfInstances = null) {
     if ( numberOfInstances == null)
@@ -14,6 +17,7 @@ export function ExpressFactoryCreateNew( numberOfInstances = null) {
 
 class Express {
 
+    static expressAppConfig = new Object();
     static domainInterfaceDefinition = [];
     //init library's to support the express server
     constructor() {
@@ -37,14 +41,14 @@ class Express {
     
     // start the application
     start() {
-        const port = 3000;
+        const port = Express.expressAppConfig['defaultConfig.service_info.port'];
         this.app.listen(port, () =>
             console.log(`Example app listening on port ${port}!`)
         )
     }
 
     setDomainInterface( domainName, middleware, domainInterfaceSchema ) {
-        let domain = findExectDOmainName(domainName)
+        let domain = findExectDomainName(domainName)
         const interfaceData = {
             app : this.app,
             domain: domain.type
@@ -52,7 +56,10 @@ class Express {
         domainInterfaceSchema(unitRouteWrapper.bind( interfaceData ))
     }
     
-
+    // this function change default config for unitFramework
+    setConfig( newConfig, defaultConfig ){
+        configServiceInstance.setConfig(newConfig, defaultConfig, Express.expressAppConfig);
+    }
 
 }
 
@@ -67,7 +74,7 @@ function createInstances( numberOfInstances, classBlueprint) {
     return instanceArray;
 }
 
-function findExectDOmainName(domainName){
+function findExectDomainName(domainName){
     return  Express
                 .domainInterfaceDefinition
                 .filter(el => {
