@@ -5,10 +5,10 @@ import { config } from './config.js';
 
 
 const UnitNetwork = UnitLib.unitNetwork;
-const unitService1 = UnitLib.newService();
+const unitService1 = UnitLib.newService(config);
 
-unitService1
-    .setConfig(config);
+// unitService1
+//     .setConfig(config);//TO DO - move setConfig to newService(), to be parameter of it
 
 // define domen of your service aka application
 unitService1
@@ -27,8 +27,12 @@ unitService1.implementDomain("Airplane",//setDomainModules
 [
     'authMiddleware', 
     'serviceAvailabilityMiddleware'
-], function( AirplaneRouter ) {
-    
+], function( AirplaneRouter, AirplaneRouterGet ) {
+
+    //Get Method to serve static files from server
+    AirplaneRouterGet('/test',{
+    }, ViewRentActionController);
+
     AirplaneRouter('/by/card',{
         userId: 'number',
         places: 'array',
@@ -52,6 +56,11 @@ unitService1.implementDomain("Airplane",//setDomainModules
 
 unitService1.Run();
 
+async function ViewRentActionController( request, response) {
+    console.log("RADI-ajdee")
+    response.render('index', { title: 'New WebApp' });
+}
+
 async function RentActionController( request, response, userId, places, priceRange, filterSchema) {
 
     console.log("Controller action");
@@ -64,7 +73,6 @@ async function RentActionController( request, response, userId, places, priceRan
     response.send(newTicket);
 
 }
-
 
 //Example how to inherit class from this package
 class Ticket extends UnitLib.classTemplate {

@@ -4,6 +4,13 @@ const validationOptions = [ "number", "object", "array", "string", "boolean" ]
 
 export function validateServiceEndpoint( validationSchema, request ){
 
+    if(request.body.data === undefined){
+        return {
+            status: true,
+            outputData: undefined
+        }
+    }
+
     let requestInput = JSON.parse(request.body.data);
     let status = true;
     const data = Object.assign( {}, requestInput);
@@ -11,7 +18,12 @@ export function validateServiceEndpoint( validationSchema, request ){
     outputData.arguments = new Array();
 
     const arrayOfKeys = Object.keys(validationSchema);
-    
+    if( arrayOfKeys.length === 0 )
+    return {
+        status: true,
+        outputData: undefined
+    }
+
     for(let key in validationSchema ) {
         let belongToSchema = data.hasOwnProperty(key);
         

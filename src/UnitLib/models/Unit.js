@@ -2,6 +2,9 @@
 
 import { UnitModelTemplate } from './UnitModelTemplate.js'
 import { config } from '../DefaultConfig.js';
+import { ConfigService } from "../services/ConfigService.js"
+
+const configServiceInstance = ConfigService();
 
 import { 
     ExpressFactoryCreateNew, 
@@ -14,10 +17,11 @@ export default class Unit {
     static cacheConn; //static cache connection (if we have redis)
     static registryConn;
     static classTemplate = UnitModelTemplate; //support to make class Models
+    static config = new Object();
 
-    
-    constructor() {
-        this.service = ExpressFactoryCreateNew(); // depend on config
+    constructor(config) {
+        Unit.config = configServiceInstance.setConfig(config, config);
+        this.service = ExpressFactoryCreateNew(Unit.config);
     }
 
     Run() {
@@ -33,8 +37,4 @@ export default class Unit {
         this.service.setDomainInterface( domainName, middleware, domainInterfaceSchema);
     }
 
-    setConfig( newConfig ){
-        this.service.setConfig(newConfig, config);
-    }
-    
 }   

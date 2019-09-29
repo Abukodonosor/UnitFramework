@@ -11,6 +11,8 @@ export const config = {
         communication_type: "http", // "http" || "ipc" 
         appType: "microservice", // "microservice" || "webApp" => TO DO - implement support for making webApp or microserviceApp
         port: 3690,
+        viewPath: "/../../../", //need to append view folder
+        publicPath: "/../../../" // need to append public folder
     },
 
     //mysql db config

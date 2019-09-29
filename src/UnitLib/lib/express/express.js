@@ -3,14 +3,13 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
-import { unitRouteWrapper } from "./expressRouter.js"
-import { ConfigService } from "../../services/ConfigService.js" 
+import path from "path";
 
-const configServiceInstance = ConfigService();
+import { unitRouteWrapper, unitRouteWrapperGet } from "./expressRouter.js"
 
-export function ExpressFactoryCreateNew( numberOfInstances = null) {
+export function ExpressFactoryCreateNew(config, numberOfInstances = null) {
     if ( numberOfInstances == null)
-        return new Express();
+        return new Express(config);
     else
         return createInstances( numberOfInstances, Express);
 }
@@ -20,12 +19,23 @@ class Express {
     static expressAppConfig = new Object();
     static domainInterfaceDefinition = [];
     //init library's to support the express server
-    constructor() {
+    constructor( config ) {
+        Express.expressAppConfig = config;
         this.app = express();
         this.app.use(logger('dev')); //colored text
         this.app.use(express.json()); 
         this.app.use(express.urlencoded({ extended: false }));
         this.app.use(cookieParser());
+        //appType is webApp bonus config like view engine, viewPath and static public folder expose
+        if (Express.expressAppConfig['defaultConfig.service_info.appType'] === "webApp") {
+            this.app.set('view engine', 'ejs');
+            this.app.set('views', path.join(
+                __dirname + 
+                Express.expressAppConfig['defaultConfig.service_info.viewPath'] , "views"));//TO DO -> Implement config support for view and public engine
+            this.app.use(express.static(path.join(
+                __dirname +
+                Express.expressAppConfig['defaultConfig.service_info.publicPath'] , 'public')));
+        }
     }
 
     /** 
@@ -38,7 +48,7 @@ class Express {
             Express.domainInterfaceDefinition.push(domain);
         }
     }
-    
+
     // start the application
     start() {
         const port = Express.expressAppConfig['defaultConfig.service_info.port'];
@@ -47,24 +57,30 @@ class Express {
         )
     }
 
+    //Implement and bind domain interface to unitRouter
     setDomainInterface( domainName, middleware, domainInterfaceSchema ) {
         let domain = findExectDomainName(domainName)
         const interfaceData = {
             app : this.app,
             domain: domain.type
         } 
-        domainInterfaceSchema(unitRouteWrapper.bind( interfaceData ))
+        domainInterfaceSchema(
+            unitRouteWrapper.bind( interfaceData ),
+            unitRouteWrapperGet.bind( interfaceData )
+        )
     }
-    
+
     // this function change default config for unitFramework
-    setConfig( newConfig, defaultConfig ){
-        configServiceInstance.setConfig(newConfig, defaultConfig, Express.expressAppConfig);
+    setConfig( newConfig, defaultConfig, UnitConfig ){
+        UnitConfig = configServiceInstance.setConfig(newConfig, defaultConfig);
+        Express.expressAppConfig = UnitConfig;
+        return UnitConfig;
     }
 
 }
 
 /** private helper functions */
-//TO DO: every instance to have different portso they can communicate => need to be implemented
+//TO DO: every instance to have different ports they can communicate => need to be implemented
 function createInstances( numberOfInstances, classBlueprint) {
     let instanceArray = [];
     while( numberOfInstances ){

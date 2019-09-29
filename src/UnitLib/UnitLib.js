@@ -7,8 +7,8 @@ import Unit  from "./models/Unit.js";
 export default (function UnitLib() {
 
     //new instance of Unit object 
-    function newUnit() {
-        return new Unit();
+    function newUnit( config ) {
+        return new Unit( config );
     }
 
     //export db connection handler

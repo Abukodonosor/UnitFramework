@@ -3,6 +3,7 @@
 export function ConfigService() {
     const defaultConfigName = 'defaultConfig';
     const newConfigName = 'newConfig';
+    var configInstance = null;
 
     function extractConfigPropertyFromDefaultConfig( defaultConfig ) {
 
@@ -31,8 +32,9 @@ export function ConfigService() {
         return configPropertyKeysMap;
     }
 
-    function setConfig( newConfig , defaultConfig , expressBlueprint) {
+    function setConfig( newConfig , defaultConfig) {
 
+        const expressBlueprint = {};
         const defaultPropertyKeys = extractConfigPropertyFromDefaultConfig(defaultConfig);
         for(let key of defaultPropertyKeys) {
             let userSchema = key.replace(defaultConfigName, newConfigName); 
@@ -46,12 +48,20 @@ export function ConfigService() {
                 expressBlueprint[key] = eval(key);
             }
         }
+        return expressBlueprint;
     }
 
+    function newConfig(newConfig , defaultConfig){
+        if( configInstance != null)
+            return configInstance;
+
+        configInstance = setConfig(newConfig , defaultConfig);
+        return configInstance
+    }
 
     return {
         getIp: () => {},
         availablePort: () => {},
-        setConfig: setConfig,
+        setConfig: newConfig,
     }
 }
