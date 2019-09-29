@@ -1,7 +1,7 @@
 "use strict";
 
 import { UnitModelTemplate } from './UnitModelTemplate.js'
-import { config } from '../DefaultConfig.js';
+import { config as defaultConig }  from '../DefaultConfig.js';
 import { ConfigService } from "../services/ConfigService.js"
 
 const configServiceInstance = ConfigService();
@@ -20,7 +20,7 @@ export default class Unit {
     static config = new Object();
 
     constructor(config) {
-        Unit.config = configServiceInstance.setConfig(config, config);
+        Unit.config = configServiceInstance.setConfig(config, defaultConig);
         this.service = ExpressFactoryCreateNew(Unit.config);
     }
 

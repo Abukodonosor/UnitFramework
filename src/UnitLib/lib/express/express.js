@@ -26,12 +26,11 @@ class Express {
         this.app.use(express.json()); 
         this.app.use(express.urlencoded({ extended: false }));
         this.app.use(cookieParser());
-        //appType is webApp bonus config like view engine, viewPath and static public folder expose
         if (Express.expressAppConfig['defaultConfig.service_info.appType'] === "webApp") {
             setWebAppAddons(this.app);
         }
     }
-
+    
     /** 
      * Set domain layers:
      * -this section is about setting the domain,
@@ -48,9 +47,9 @@ class Express {
         const port = Express.expressAppConfig['defaultConfig.service_info.port'];
         this.app.listen(port, () =>
             console.log(`Example app listening on port ${port}!`)
-        )
+            )
     }
-
+    
     //Implement and bind domain interface to unitRouter
     setDomainInterface( domainName, middleware, domainInterfaceSchema ) {
         let domain = findExectDomainName(domainName)
@@ -63,14 +62,14 @@ class Express {
             unitRouteWrapperGet.bind( interfaceData )
         )
     }
-
+    
     // this function change default config for unitFramework
     setConfig( newConfig, defaultConfig, UnitConfig ){
         UnitConfig = configServiceInstance.setConfig(newConfig, defaultConfig);
         Express.expressAppConfig = UnitConfig;
         return UnitConfig;
     }
-
+    
 }
 
 /** private helper functions */
@@ -86,19 +85,20 @@ function createInstances( numberOfInstances, classBlueprint) {
 
 function findExectDomainName(domainName){
     return  Express
-                .domainInterfaceDefinition
-                .filter(el => {
+    .domainInterfaceDefinition
+    .filter(el => {
                     if ( el.definition == domainName )
                         return el;
-                })[0];
+                    })[0];
 }
 
+//appType is webApp bonus config like view engine, viewPath and static public folder expose
 function setWebAppAddons( appInstance ){
     appInstance.set('view engine', 'ejs');
     appInstance.set('views', path.join(
         __dirname + 
         Express.expressAppConfig['defaultConfig.service_info.viewPath'] , "views"));//TO DO -> Implement config support for view and public engine
-    appInstance.use(express.static(path.join(
+        appInstance.use(express.static(path.join(
         __dirname +
         Express.expressAppConfig['defaultConfig.service_info.publicPath'] , 'public')));
-}
+    }
