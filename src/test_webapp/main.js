@@ -7,10 +7,7 @@ import { config } from './config.js';
 const UnitNetwork = UnitLib.unitNetwork;
 const unitService1 = UnitLib.newService(config);
 
-// unitService1
-//     .setConfig(config);//TO DO - move setConfig to newService(), to be parameter of it
-
-// define domen of your service aka application
+// define domain of your service aka application
 unitService1
     .setDomains([
     {
@@ -99,65 +96,3 @@ class Ticket extends UnitLib.classTemplate {
         return this.dbConnection.queryPromise("select * from boat_tracker.boat",[]);
     }
 }
-
-// debugger
-// console.log(unitService1);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // Some testing code
-// const { fork } = require('child_process');
-
-// const forked = fork('demo.js');
-
-// console.log(process.pid)
-
-// forked.on('message', (msg) => {
-//   console.log('Message from child', msg);
-// });
-
-// forked.send({ hello: 'world' });
-
-// const child = spawn('pwd');
-
-// child.on('exit', function (code, signal) {
-//     console.log('child process exited with ' +
-//                 `code ${code} and signal ${signal}`);
-//   });
-
-/*  Here is part of clustered code .. with same code as master process have */
-
-// const numCPUs = os.cpus().length;
-
-// const clusterMap = {};
-
-// if (cluster.isMaster) {
-//     console.log('Master process is running with pid:', process.pid);
-//     for (let i = 0; i < numCPUs; ++i) {
-//         const worker = cluster.fork({ workerId: "worker" +  i });
-//     }
-// } else {
-//     console.log('Worker started with pid:', process.pid);
-//     console.log("workerID: " + process.env.workerId);
-// }
-
-
-
-
-
-
-
-
-

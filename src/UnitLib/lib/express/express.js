@@ -28,13 +28,7 @@ class Express {
         this.app.use(cookieParser());
         //appType is webApp bonus config like view engine, viewPath and static public folder expose
         if (Express.expressAppConfig['defaultConfig.service_info.appType'] === "webApp") {
-            this.app.set('view engine', 'ejs');
-            this.app.set('views', path.join(
-                __dirname + 
-                Express.expressAppConfig['defaultConfig.service_info.viewPath'] , "views"));//TO DO -> Implement config support for view and public engine
-            this.app.use(express.static(path.join(
-                __dirname +
-                Express.expressAppConfig['defaultConfig.service_info.publicPath'] , 'public')));
+            setWebAppAddons(this.app);
         }
     }
 
@@ -97,4 +91,14 @@ function findExectDomainName(domainName){
                     if ( el.definition == domainName )
                         return el;
                 })[0];
+}
+
+function setWebAppAddons( appInstance ){
+    appInstance.set('view engine', 'ejs');
+    appInstance.set('views', path.join(
+        __dirname + 
+        Express.expressAppConfig['defaultConfig.service_info.viewPath'] , "views"));//TO DO -> Implement config support for view and public engine
+    appInstance.use(express.static(path.join(
+        __dirname +
+        Express.expressAppConfig['defaultConfig.service_info.publicPath'] , 'public')));
 }
