@@ -12,8 +12,7 @@ const unitService1 = UnitLib.newService(config);
 
 // define domen of your service aka application
 unitService1
-    .service
-    .setDomain([
+    .setDomains([
     {
         type: 'airplane',
         definition: "Airplane"
