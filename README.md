@@ -9,7 +9,7 @@ To test his functionality take next steps:
 2.yarn dev ( to run server ) <br>
 3. node node client-test.js ( script to test end-point ) <br>
 
-/*==============================================================*/
+/*==============================================================*/<br>
 If you wish to use and test this framework, next snippet will give you introduction on how to use framework.
 ```
 var UnitLib = require('@abukodonosor/unit');
