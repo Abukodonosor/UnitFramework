@@ -1,8 +1,8 @@
 {
   "name": "@abukodonosor/unit",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "",
-  "main": "index.js",
+  "main": "dist/UnitLib/UnitLib.js",
   "scripts": {
     "dev": "nodemon --exec babel-node src/test_webapp/main.js",
     "build": "babel src --out-dir dist",
