@@ -1,6 +1,6 @@
 {
-  "name": "GrindingService",
-  "version": "1.0.0",
+  "name": "@abukodonosor/unit",
+  "version": "0.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
