@@ -10,34 +10,30 @@ To test his functionality take next steps:
 3. node node client-test.js ( script to test end-point ) <br>
 
 
-## If you wish to use and test this framework, next snippet will give you introduction on how to use framework.
+If you wish to use and test this framework, next snippet will give you introduction on how to use framework.
 ```
 var UnitLib = require('@abukodonosor/unit');
 const config = {
     // service information
     service_info: {
         name: "Unit",
-        communication_type: "http", // "http" || "ipc" 
-        appType: "webApp", // "microservice" || "webApp" => TO DO - implement support for making webApp or microserviceApp
+        communication_type: "http",
+        appType: "microservice",
         port: 3000,
-        viewPath: "/../../../test_webapp",
-        publicPath: "/../../../test_webapp"
     },
     //mysql db config
     db: {
-        ip: "local", // "local" || "public"
-        port: 3000, // configService.availablePort() || 3000  : NOT IMPLEMENTED
+        ip: "local",
+        port: 3000,
         db_name: "db_name",
         db_user: "unit",
         db_password: "unit",
     },
-    //unit registry discovery connection config : NOT IMPLEMENTED
     registry: {
         registry_ip: "192.168.2.1",
         registry_port: 9000,
         registry_token: "hw$xxg93`_sXXX09!2_pPq"
     },
-    //redis cache mechanism config : NOT IMPLEMENTED
     redis_cache: {
         cache_ip: "local",
         cache_port: 6770,
@@ -73,13 +69,7 @@ unitService1.implementDomain("Airplane",//setDomainModules
 
 unitService1.Run();
 
-async function ViewRentActionController( request, response) {
-    console.log("RADI-ajdee")
-    response.render('index', { title: 'New WebApp' });
-}
-
 async function RentActionController( request, response, userId, places, priceRange, filterSchema) {
-
     console.log("Controller action");
     let expiredTickets = await Ticket.getAllExpiredTickets();
     console.log("Get all expired tickets: " + expiredTickets);
@@ -87,7 +77,6 @@ async function RentActionController( request, response, userId, places, priceRan
     console.log("All Non-Expired tickets: " + nonExpiredTickets);
     const newTicket = "success";
     response.send(newTicket);
-
 }
 
 //Example how to inherit class from this package
@@ -110,10 +99,6 @@ class Ticket extends UnitLib.default.classTemplate {
     // promise wrapper around query lib
     static getNonExpiredTickets() {
         return this.dbConnection.queryPromise("SELECT 1 + 1 AS solution",[]);
-    }
-    // result array
-    static testNewDBquery() {
-        return this.dbConnection.queryPromise("select * from boat_tracker.boat",[]);
     }
 }
 
