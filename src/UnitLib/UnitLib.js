@@ -4,7 +4,7 @@
 import Unit  from "./models/Unit.js";
 
 
-export default (function UnitLib() {
+export function UnitLib() {
 
     //new instance of Unit object 
     function newUnit( config ) {
@@ -27,4 +27,4 @@ export default (function UnitLib() {
         dbConnection: dbConnectionHandler(),
         classTemplate: classTemplate()
     }
-}())
+};

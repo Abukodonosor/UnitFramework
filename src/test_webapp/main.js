@@ -1,11 +1,11 @@
 'use strict';
 /*** test unit network lib */
-import UnitLib  from '../UnitLib/UnitLib.js';
+import { UnitLib } from '../UnitLib/UnitLib.js';
 import { config } from './config.js';
 
-
-const UnitNetwork = UnitLib.unitNetwork;
-const unitService1 = UnitLib.newService(config);
+const UnitLibFactory = UnitLib();
+// const UnitNetwork = UnitLib.unitNetwork; // this is dynamic discovery of patterns( microservices, and other peers in network)
+const unitService1 = UnitLibFactory.newService(config);
 
 // define domain of your service aka application
 unitService1
@@ -71,7 +71,7 @@ async function RentActionController( request, response, userId, places, priceRan
 }
 
 //Example how to inherit class from this package
-class Ticket extends UnitLib.classTemplate {
+class Ticket extends UnitLibFactory.classTemplate {
 
     constructor(){
         super();

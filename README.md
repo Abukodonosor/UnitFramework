@@ -13,6 +13,8 @@ To test his functionality take next steps:<br>
 If you wish to use and test this framework, next snippet will give you introduction on how to use framework.
 ```
 var UnitLib = require('@abukodonosor/unit');
+const UnitLibFactory = UnitLib();
+
 const config = {
     // service information
     service_info: {
@@ -40,7 +42,7 @@ const config = {
     },
 };
 
-const unitService1 = UnitLib.default.newService(config);
+const unitService1 = UnitLibFactory.newService(config);
 
 unitService1
     .setDomains([
@@ -80,7 +82,7 @@ async function RentActionController( request, response, userId, places, priceRan
 }
 
 //Example how to inherit class from this package
-class Ticket extends UnitLib.default.classTemplate {
+class Ticket extends UnitLibFactory.classTemplate {
 
     constructor(){
         super();

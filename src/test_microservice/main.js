@@ -1,9 +1,10 @@
 'use strict';
 // import fs from 'fs';
-import UnitLib  from '../UnitLib/UnitLib.js';
+import { UnitLib }  from '../UnitLib/UnitLib.js';
 
-const UnitNetwork = UnitLib.unitNetwork;
-const unitService1 = UnitLib.newService();
+const UnitLibFactory = UnitLib();
+// const UnitNetwork = UnitLib.unitNetwork;
+const unitService1 = UnitLibFactory.newService();
 
 // define domen of your service aka application
 unitService1
@@ -62,7 +63,7 @@ async function RentActionController( request, response, userId, places, priceRan
 
 
 //Example how to inherit class from this package
-class Ticket extends UnitLib.classTemplate {
+class Ticket extends UnitLibFactory.classTemplate {
 
     constructor(){
         super();
