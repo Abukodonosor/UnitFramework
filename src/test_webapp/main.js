@@ -64,9 +64,9 @@ async function RentActionController( request, response, userId, places, priceRan
     console.log("Get all expired tickets: " + expiredTickets);
     // let expiredTickets = UnitNetwork.getAllExpiredTickets(userId); // : TO IMPLEMENT - fetch data from other services
     let nonExpiredTickets = await Ticket.getNonExpiredTickets();
-    console.log("All Non-Expired tickets: " + nonExpiredTickets);
+    console.log(nonExpiredTickets);
     const newTicket = "success";
-    response.send(newTicket);
+    response.send({odgovor:newTicket});
 
 }
 
@@ -89,7 +89,7 @@ class Ticket extends UnitLibFactory.classTemplate {
     }
     // promise wrapper around query lib
     static getNonExpiredTickets() {
-        return this.dbConnection.queryPromise("SELECT 1 + 1 AS solution",[]);
+        return this.dbConnection.queryPromise("SELECT * FROM talk.user WHERE email = ? AND pass = ? AND active = 1",['test01@gmail.com','test01']);
     }
     // result array
     static testNewDBquery() {

@@ -13,10 +13,10 @@ export const config = {
     //mysql db config
     db: {
         ip: "local", // "local" || "public"
-        port: 3000, // configService.availablePort() || 3000  : NOT IMPLEMENTED
-        db_name: "db_name",
-        db_user: "unit",
-        db_password: "unit",
+        port: 3306, // configService.availablePort() || 3000  : NOT IMPLEMENTED
+        db_name: "catch_talk",
+        db_user: "root",
+        db_password: "qweqwe123",
     },
     //unit registry discovery connection config : NOT IMPLEMENTED
     registry: {

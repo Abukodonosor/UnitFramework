@@ -87,9 +87,9 @@ function findExectDomainName(domainName){
     return  Express
     .domainInterfaceDefinition
     .filter(el => {
-                    if ( el.definition == domainName )
-                        return el;
-                    })[0];
+        if ( el.definition == domainName )
+            return el;
+    })[0];
 }
 
 //appType is webApp bonus config like view engine, viewPath and static public folder expose
