@@ -13,15 +13,14 @@ export function queryPromise(query, queryParams ){
             
             //edge case when we use UPDATE/INSERT/DELETE
             if(results.insertId){
-                return resolve({
-                    insertId: results.insertId,
-                })
+                return resolve({ insertId: results.insertId})
+            }else{
+                let res = [];
+                for(let row of results) {
+                    res.push(row);
+                }
+                return resolve(res);
             }
-            let res = [];
-            for(let row of results) {
-                res.push(row);
-            }
-            resolve(res);
         });
     });
 } 
