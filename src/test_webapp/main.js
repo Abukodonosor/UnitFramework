@@ -59,9 +59,9 @@ async function ViewRentActionController( request, response) {
 
 async function RentActionController( request, response, userId, places, priceRange, filterSchema) {
 
-    console.log("Controller action");
-    let expiredTickets = await Ticket.getAllExpiredTickets();
-    console.log("Get all expired tickets: " + expiredTickets);
+    console.log("Controller action+");
+    let expiredTickets = await Ticket.testNewDBquery();
+    console.log("Get all expired tickets: " + expiredTickets.length);
     // let expiredTickets = UnitNetwork.getAllExpiredTickets(userId); // : TO IMPLEMENT - fetch data from other services
     let nonExpiredTickets = await Ticket.getNonExpiredTickets();
     console.log(nonExpiredTickets);
@@ -89,10 +89,10 @@ class Ticket extends UnitLibFactory.classTemplate {
     }
     // promise wrapper around query lib
     static getNonExpiredTickets() {
-        return this.dbConnection.queryPromise("SELECT * FROM talk.user WHERE email = ? AND pass = ? AND active = 1",['test01@gmail.com','test01']);
+        return this.dbConnection.queryPromise("INSERT INTO talk.user (username,email,pass) VALUES (?,?,?)",["username", "email", "password"]);
     }
     // result array
     static testNewDBquery() {
-        return this.dbConnection.queryPromise("select * from boat_tracker.boat",[]);
+        return this.dbConnection.queryPromise("select * from talk.user",[]);
     }
 }
