@@ -11,17 +11,18 @@ import {
     DbDriver
 } from '../lib/lib.js';
 
-export default class Unit {
+export class Unit {
 
-    static dbConn = DbDriver('mysql', 'singleton'); // from config parameter to choose singleton or pool pattern
     static cacheConn; //static cache connection (if we have redis)
     static registryConn;
-    static classTemplate = UnitModelTemplate; //support to make class Models
+    static dbConn = new Object();
     static config = new Object();
 
     constructor(config) {
+        // console.log(config);
         Unit.config = configServiceInstance.setConfig(config, defaultConig);
         this.service = ExpressFactoryCreateNew(Unit.config);
+        Unit.dbConn = DbDriver('mysql', 'singleton', Unit.config);
     }
 
     Run() {
@@ -38,3 +39,11 @@ export default class Unit {
     }
 
 }   
+
+export function classTemplateInit(config){
+    const mainConfig = configServiceInstance.setConfig(config, defaultConig);
+    const newClass = UnitModelTemplate
+    newClass.dbConnection = DbDriver('mysql', 'singleton', mainConfig);
+
+    return newClass
+}

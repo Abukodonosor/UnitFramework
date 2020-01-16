@@ -12,7 +12,7 @@ export const config = {
     },
     //mysql db config
     db: {
-        ip: "local", // "local" || "public"
+        ip: "localhost", // "local" || "public"
         port: 3306, // configService.availablePort() || 3000  : NOT IMPLEMENTED
         db_name: "catch_talk",
         db_user: "root",

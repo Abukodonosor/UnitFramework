@@ -3,15 +3,15 @@
 import { UnitLib } from '../UnitLib/UnitLib.js';
 import { config } from './config.js';
 
-const UnitLibFactory = UnitLib();
+const UnitLibFactory = UnitLib(config);
 // const UnitNetwork = UnitLib.unitNetwork; // this is dynamic discovery of patterns( microservices, and other peers in network)
-const unitService1 = UnitLibFactory.newService(config);
+const unitService1 = UnitLibFactory.newService;
 
 // define domain of your service aka application
 unitService1
     .setDomains([
     {
-        type: 'airplane',
+        type: '*',
         definition: "Airplane"
     },
     {
@@ -26,7 +26,7 @@ unitService1.implementDomain("Airplane",//setDomainModules
 ], function( AirplaneRouter, AirplaneRouterGet ) {
 
     //Get Method to serve static files from server
-    AirplaneRouterGet('/test',{
+    AirplaneRouterGet('',{
     }, ViewRentActionController);
 
     AirplaneRouter('/by/card',{

@@ -22,16 +22,3 @@ app.get('/1', (req,res) => {
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
-
-// function test11(text,time , callback=null){
-//     setTimeout(()=>{
-//             console.log(text)
-
-//             if( callback != null)
-//                 callback();
-//         }, time)
-// }
-
-// test11("ajde1", 3000);
-// test11("new3",1000, function(){  process.nextTick(()=>{console.log("response")}); })
-// test11("new2",0)

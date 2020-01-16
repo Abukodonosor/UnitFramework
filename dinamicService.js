@@ -11,7 +11,6 @@ var json = `{
 var text = JSON.parse(json);
 
 function API(){
-
     function makeFunction(){
         var obj = Object.create(null);
         
@@ -20,16 +19,13 @@ function API(){
         obj["DbService"] = function (...keys){
             console.log(keys);
         }
-
         return obj;
     }
-
     return {
         // methodName: method,
         makeFunction: makeFunction,
     }
 }
-
 
 var x = API().makeFunction();
 

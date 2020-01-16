@@ -15,13 +15,13 @@ var poolDbConnection;
 // export function MySql ( config ){
     
     // Singleton pattern used for db connection 
-export function getSingletonConnection() {
+export function getSingletonConnection(unitConfig) {
         if (dbConnection) return dbConnection;
         dbConnection =  mysql.createConnection({
-            host     : 'localhost',
-            user     : "root",
-            password : "qweqwe123",
-            database : "boat_tracker"
+            host     : unitConfig['defaultConfig.db.ip'],
+            user     : unitConfig['defaultConfig.db.db_user'],
+            password : unitConfig['defaultConfig.db.db_password'],
+            database : unitConfig['defaultConfig.db.db_name']
         });	
         dbConnection.connect();
         return dbConnection;

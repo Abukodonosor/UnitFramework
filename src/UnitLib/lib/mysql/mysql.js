@@ -27,12 +27,11 @@ import {
 const drivers = ['mysql', 'postgre', 'mongo'];
 const connTypes = [ 'singleton', 'pool' ];
 
- export function DbDriver( driverType, connectionType ){
-
+ export function DbDriver( driverType, connectionType, unitConfig ){
     switch( driverType ){
         case 'mysql':
             return injectPropertyQueryPromise( 
-                connectionTypeInstanceByDriver(connectionType, driverType),
+                connectionTypeInstanceByDriver(connectionType, driverType, unitConfig),
                 queryPromise);
         case 'postgre':
             break;
@@ -49,14 +48,14 @@ const connTypes = [ 'singleton', 'pool' ];
      return injectProperty( parentObject, injector, "queryPromise");
  }
 
- function connectionTypeInstanceByDriver( connType , driverName){
+ function connectionTypeInstanceByDriver( connType , driverName, unitConfig){
     if( connTypes.indexOf(connType) === -1 ){
         throw new Error("invalid connection pattern!")
     }
     switch(driverName){
         case 'mysql':
             if( connType === connTypes[0]){
-                return getSingletonConnection();
+                return getSingletonConnection(unitConfig);
             } 
             else if ( connType === connTypes[1]) {
                 return getPoolConnection();

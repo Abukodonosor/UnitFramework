@@ -13,7 +13,6 @@ To test his functionality take next steps:<br>
 If you wish to use and test this framework, next snippet will give you introduction on how to use framework.
 ```
 var UnitLib = require('@abukodonosor/unit');
-const UnitLibFactory = UnitLib.UnitLib();
 
 const config = {
     // service information
@@ -42,7 +41,8 @@ const config = {
     },
 };
 
-const unitService1 = UnitLibFactory.newService(config);
+const UnitLibFactory = UnitLib.UnitLib(config);
+const unitService1 = UnitLibFactory.newService;
 
 unitService1
     .setDomains([
